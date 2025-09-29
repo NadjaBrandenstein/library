@@ -1,4 +1,7 @@
 using api;
+using api.Dtos;
+using api.Dtos.Requests;
+using api.Services;
 using efscaffold;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,10 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 var appOptions = builder.Services.AddAppOptions(builder.Configuration);
 
-// builder.Services.AddScoped<ILibraryService<BookDto, CreateBookDto, UpdateBookDto>, BookService>();
-// builder.Services.AddScoped<ILibraryService<AuthorDto, CreateAuthorDto, UpdateAuthorDto>, AuthorService>();
-// builder.Services.AddScoped<ILibraryService<GenreDto, CreateGenreDto, UpdateGenreDto>, GenreService>();
-// builder.Services.AddScoped<ILibraryService<BookImageDto, CreateBookImageDto, UpdateBookImageDto>, BookImageService>();
+builder.Services.AddScoped<ILibraryService<BookDto, CreateBookDto, UpdateBookDto>, BookService>();
+builder.Services.AddScoped<ILibraryService<AuthorDto, CreateAuthorDto, UpdateAuthorDto>, AuthorService>();
+builder.Services.AddScoped<ILibraryService<GenreDto, CreateGenreDto, UpdateGenreDto>, GenreService>();
+builder.Services.AddScoped<ILibraryService<BookImageDto, CreateBookImageDto, UpdateBookImageDto>, BookImageService>();
 
 builder.Services.AddDbContext<MyDbContext>(conf =>
 {
