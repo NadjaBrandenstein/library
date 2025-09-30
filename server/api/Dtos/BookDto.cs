@@ -25,7 +25,7 @@ public class BookDto
     
     public string? Genreid { get; set; }
 
-    public List<string> AuthorsIds { get; set; } = null!;
+    public List<string> AuthorsIds { get; set; }
     
     public string? ImageUrl { get; set; }
 }

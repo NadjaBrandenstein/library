@@ -2,6 +2,7 @@ import './CSS/App.css'
 import {createBrowserRouter, RouterProvider} from "react-router";
 import Home from "./Home.tsx";
 import Layout from "./Layout.tsx";
+import BookDetails from "./BookDetails.tsx";
 
 function App() {
     const router = createBrowserRouter([
@@ -9,9 +10,9 @@ function App() {
             path: "/",
             element: <Layout/>, //Layout wraps all pages
             children: [
-                {path: "/", element: <Home/>}
-                // {path: "/books/:bookId", element: <BookDetails/>}
-                // {path: "/newbook", element: <NewBook/>}
+                {path: "/", element: <Home/>},
+                {path: "/books/:bookId", element: <BookDetails/>},
+                // {path: "/newbook", element: <NewBook/>},
                 // {path: "/updatebook", element: <UpdateBook/>}
             ],
         },
