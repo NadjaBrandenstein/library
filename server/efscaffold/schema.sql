@@ -21,15 +21,8 @@ create table library.book
     title     text             not null,
     pages     int              not null,
     createdAt timestamp with time zone,
-    genreId   text             references library.genre (id) on delete set null
-);
-
-create table library.bookimage
-(
-    id       text primary key not null,
-    bookId   text references library.book (id) on delete cascade,
-    url      text not null,
-    createdAt timestamp with time zone default now()
+    genreId   text             references library.genre (id) on delete set null,
+    imageUrl  text             not null
 );
 
 create table library.authorbookjunction

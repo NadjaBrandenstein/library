@@ -13,4 +13,8 @@ public class UpdateBookDto
     [MinLength(1)]
     [Required]
     public required string Title { get; set; } = null!;
+    
+    [MinLength(1)]
+    [Required]
+    public required string ImageUrl { get; set; } = null!;
 }

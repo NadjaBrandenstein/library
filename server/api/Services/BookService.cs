@@ -10,18 +10,12 @@ public class BookService(MyDbContext dbContext) : ILibraryService<BookDto, Creat
 {
     public async Task<List<BookDto>> GetAll()
     {
-        return await dbContext.Books
-            .Include(b => b.Bookimages)
-            .Select(b => new BookDto(b))
-            .ToListAsync();
+        return await dbContext.Books.Select(b => new BookDto(b)).ToListAsync();
     }
 
     public async Task<BookDto?> GetById(string id)
     {
-        var book = await dbContext.Books
-            .Include(b => b.Bookimages)
-            .FirstOrDefaultAsync(b => b.Id == id);
-        
+        var book = await dbContext.Books.FirstOrDefaultAsync(b => b.Id == id);
         return book == null ? null : new BookDto(book);
     }
     
@@ -34,19 +28,17 @@ public class BookService(MyDbContext dbContext) : ILibraryService<BookDto, Creat
             Title = dto.Title,
             Pages = dto.Pages,
             Createdat = DateTime.UtcNow,
+            Imageurl = dto.ImageUrl
         };
         dbContext.Books.Add(book);
         await dbContext.SaveChangesAsync();
-        await dbContext.Entry(book).Collection(b => b.Bookimages).LoadAsync();
         return new BookDto(book);
     }
 
     public async Task<BookDto?> Update(UpdateBookDto dto)
     {
         Validator.ValidateObject(dto, new ValidationContext(dto), true);
-        var existingBook = await dbContext.Books
-            .Include(b => b.Bookimages)
-            .FirstOrDefaultAsync(b => b.Id == dto.Id);
+        var existingBook = await dbContext.Books.FirstOrDefaultAsync(b => b.Id == dto.Id);
         if (existingBook == null)
         {
             return null;
@@ -54,15 +46,14 @@ public class BookService(MyDbContext dbContext) : ILibraryService<BookDto, Creat
 
         existingBook.Title = dto.Title;
         existingBook.Pages = dto.Pages;
+        existingBook.Imageurl = dto.ImageUrl;
         await dbContext.SaveChangesAsync();
         return new BookDto(existingBook);
     }
 
     public async Task<BookDto?> Delete(string id)
     {
-        var existingBook = await dbContext.Books
-            .Include(b => b.Bookimages)
-            .FirstOrDefaultAsync(b => b.Id == id);
+        var existingBook = await dbContext.Books.FirstOrDefaultAsync(b => b.Id == id);
         if (existingBook == null)
         {
             return null;
@@ -71,5 +62,4 @@ public class BookService(MyDbContext dbContext) : ILibraryService<BookDto, Creat
         await dbContext.SaveChangesAsync();
         return new  BookDto(existingBook);
     }
-    
 }

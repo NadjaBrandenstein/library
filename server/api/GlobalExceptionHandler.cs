@@ -10,7 +10,7 @@ public class GlobalExceptionHandler : IExceptionHandler
         var problemDetails = new ProblemDetails()
         {
             Title = exception.Message,
-            Detail = exception.InnerException?.Message,
+            Detail = exception.InnerException?.Message
         };
         await httpContext.Response.WriteAsJsonAsync(problemDetails);
         return true;

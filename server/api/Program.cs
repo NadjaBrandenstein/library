@@ -12,7 +12,6 @@ var appOptions = builder.Services.AddAppOptions(builder.Configuration);
 builder.Services.AddScoped<ILibraryService<BookDto, CreateBookDto, UpdateBookDto>, BookService>();
 builder.Services.AddScoped<ILibraryService<AuthorDto, CreateAuthorDto, UpdateAuthorDto>, AuthorService>();
 builder.Services.AddScoped<ILibraryService<GenreDto, CreateGenreDto, UpdateGenreDto>, GenreService>();
-builder.Services.AddScoped<ILibraryService<BookImageDto, CreateBookImageDto, UpdateBookImageDto>, BookImageService>();
 
 builder.Services.AddDbContext<MyDbContext>(conf =>
 {
@@ -22,7 +21,7 @@ builder.Services.AddDbContext<MyDbContext>(conf =>
 builder.Services.AddControllers();
 builder.Services.AddOpenApiDocument();
 builder.Services.AddProblemDetails();
-//builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddCors();
 
 var app = builder.Build();
@@ -38,6 +37,6 @@ app.UseCors(config => config
 app.MapControllers();
 app.UseOpenApi();
 app.UseSwaggerUi();
-//await app.GenerateApiClientsFromOpenApi("/../../client/src/generated-ts-client.ts");
+await app.GenerateApiClientsFromOpenApi("/../../client/src/generated-ts-client.ts");
 
 app.Run();

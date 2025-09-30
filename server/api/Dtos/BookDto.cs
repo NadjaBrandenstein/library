@@ -12,7 +12,7 @@ public class BookDto
         Createdat = book.Createdat;
         Genreid = book.Genreid;
         AuthorsIds = book.Authors?.Select(a => a.Id).ToList() ?? new  List<string>();
-        Images = book.Bookimages?.Select(img => new BookImageDto(img)).ToList() ?? new List<BookImageDto>();
+        ImageUrl = book.Imageurl;
     }
 
     public string Id { get; set; } = null!;
@@ -27,5 +27,5 @@ public class BookDto
 
     public List<string> AuthorsIds { get; set; } = null!;
     
-    public List<BookImageDto>? Images { get; set; }
+    public string? ImageUrl { get; set; }
 }
