@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for library--project on 2025-09-29T22:58:59+02:00
+# fly.toml app configuration file generated for libraryproject-client on 2025-09-30T06:08:34+02:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'library--project'
+app = 'libraryproject-client'
 primary_region = 'fra'
 
 [build]
