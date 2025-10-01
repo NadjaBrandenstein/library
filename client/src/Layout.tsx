@@ -9,7 +9,7 @@ export default function Home(){
     return (
         <div>
             <div className="navbar">
-                <div className={"relative"}>
+                <div className="menu-container">
                     <button className="button" onClick={() => setMenuOpen(!menuOpen)}>
                         ☰
                     </button>
@@ -23,7 +23,7 @@ export default function Home(){
                 </div>
                 <h2 className="navbar-text">Library</h2>
             </div>
-            <main>
+            <main className="main-content">
                 <Outlet/>
             </main>
         </div>

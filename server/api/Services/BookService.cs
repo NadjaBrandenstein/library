@@ -10,12 +10,17 @@ public class BookService(MyDbContext dbContext) : ILibraryService<BookDto, Creat
 {
     public async Task<List<BookDto>> GetAll()
     {
-        return await dbContext.Books.Select(b => new BookDto(b)).ToListAsync();
+        return await dbContext.Books
+            .Include(b => b.Authors)
+            .Select(b => new BookDto(b))
+            .ToListAsync();
     }
 
     public async Task<BookDto?> GetById(string id)
     {
-        var book = await dbContext.Books.FirstOrDefaultAsync(b => b.Id == id);
+        var book = await dbContext.Books
+            .Include(b => b.Authors)
+            .FirstOrDefaultAsync(b => b.Id == id);
         return book == null ? null : new BookDto(book);
     }
     

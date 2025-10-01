@@ -19,35 +19,25 @@ export default function BookDetails(){
 
             try{
                 // Fetch Book
-                const response = await fetch(`https://library-project-api.fly.dev/GetBookById/${bookId}`);
-                const bookData: BookDto = await response.json();
+                const bookResponse = await fetch(`https://library-project-api.fly.dev/GetBookById/${bookId}`);
+                const bookData: BookDto = await bookResponse.json();
                 setBook(bookData);
 
-                // Fetch Authors
-                try {
-                    const authorsResult = await fetch(`https://library-project-api.fly.dev/GetAllAuthors`);
-                    const allAuthors: AuthorDto[] = await authorsResult.json();
-
-                    const validAuthorIds = (bookData.authorsIds || []).filter((id): id is string => !!id);
-
-                    const bookAuthors = allAuthors.filter(a => a.id && validAuthorIds.includes(a.id));
-                    setAuthors(bookAuthors);
-                } catch (err) {
-                    console.error("Failed to fetch authors:", err);
-                    setAuthors([]);
+                // // Fetch Authors
+                if(bookData.authorsIds?.length){
+                    const authorResponse =await fetch(`https://library-project-api.fly.dev/GetAllAuthors`);
+                    const allAuthors: AuthorDto[] = await authorResponse.json();
+                    const bookAuthors = allAuthors.find(a => a.id === bookData.authorsIds);
+                    setAuthors(bookAuthors?.name ?? null);
                 }
 
+
                 // Fetch Genre
-                try {
-                    if (bookData.genreid) {
-                        const genreRes = await fetch(`https://library-project-api.fly.dev/GetAllGenres`);
-                        const allGenres: GenreDto[] = await genreRes.json();
-                        const bookGenre = allGenres.find(g => g.id === bookData.genreid);
-                        setGenreName(bookGenre?.name ?? null);
-                    }
-                } catch (err) {
-                    console.error("Failed to fetch genre:", err);
-                    setGenreName(null);
+                if (bookData.genreid) {
+                    const genreResponse = await fetch(`https://library-project-api.fly.dev/GetAllGenres`);
+                    const allGenres: GenreDto[] = await genreResponse.json();
+                    const bookGenre = allGenres.find(g => g.id === bookData.genreid);
+                    setGenreName(bookGenre?.name ?? null);
                 }
 
             }catch(err){
@@ -69,12 +59,14 @@ export default function BookDetails(){
     }
 
     return (
-        <div className="book-details">
-            <h1>{book.title}</h1>
-            <img src={book.imageUrl || "placeholder.png"} alt={book.title} />
-            <p><strong>Author: </strong>{authors.length ? authors.map(a => a.name).join(","): "Unknown"}</p>
-            <p><strong>Genre: </strong>{genreName || "Unknown"}</p>
-            <p><strong>Pages: </strong>{book.pages || "Unknown"}</p>
+        <div className="book-details-container">
+            <h1 className="book-title">{book.title}</h1>
+            <img  className="book-detail-image" src={book.imageUrl || "placeholder.png"} alt={book.title} />
+            <div className="book-info">
+                <p><strong>Author: </strong>{authors.length ? authors.map(a => a.name).join(","): "Unknown"}</p>
+                <p><strong>Genre: </strong>{genreName || "Unknown"}</p>
+                <p><strong>Pages: </strong>{book.pages || "Unknown"}</p>
+            </div>
         </div>
     )
 }
