@@ -12,10 +12,7 @@ export default function BookDetails(){
 
     useEffect(() => {
         async function fecthBookDetails() {
-            if(!bookId)
-            {
-                return;
-            }
+            if(!bookId) return;
 
             try{
                 // Fetch Book
@@ -30,7 +27,6 @@ export default function BookDetails(){
                     const bookAuthors = allAuthors.find(a => a.id === bookData.authorsIds);
                     setAuthors(bookAuthors?.name ?? null);
                 }
-
 
                 // Fetch Genre
                 if (bookData.genreid) {

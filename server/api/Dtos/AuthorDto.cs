@@ -18,5 +18,5 @@ public class AuthorDto
     
     public DateTime? Createdat { get; set; }
     
-    public List<string> BookIds { get; set; } = null!;
+    public List<string> BookIds { get; set; } = new();
 }

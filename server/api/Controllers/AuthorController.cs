@@ -16,10 +16,21 @@ public class AuthorController: ControllerBase
     }
     
     [HttpGet(nameof(GetAllAuthors))]
-    public async Task<ActionResult<AuthorDto>> GetAllAuthors(AuthorDto dto)
+    public async Task<ActionResult<AuthorDto>> GetAllAuthors()
     {
         var authors = await _libraryService.GetAll();
         return Ok(authors);
+    }
+
+    [HttpGet("GetAuthorById/{id}")]
+    public async Task<ActionResult<AuthorDto>> GetAuthorsById(string id)
+    {
+        var author =  await _libraryService.GetById(id);
+        if (author == null)
+        {
+            return NotFound();
+        }
+        return Ok(author);
     }
 
     [HttpPost(nameof(CreateAuthor))]
