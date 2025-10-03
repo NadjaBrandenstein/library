@@ -15,8 +15,6 @@ export default function Home(){
                 const bookResponse = await fetch("https://library-project-api.fly.dev/GetAllBooks");
                 const data = await bookResponse.json();
 
-                console.log("API response:", data);
-
                 const books: BookDto[] = Array.isArray(data) ? data : data?.books ?? [];
                 setAllBooks(books);
             } catch (err) {

@@ -18,7 +18,7 @@ export class AuthorClient {
     }
 
     getAllAuthors(): Promise<AuthorDto> {
-        let url_ = this.baseUrl + "/api/Author/GetAllAuthors";
+        let url_ = this.baseUrl + "/GetAllAuthors";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_: RequestInit = {
@@ -51,7 +51,7 @@ export class AuthorClient {
     }
 
     getAuthorsById(id: string): Promise<AuthorDto> {
-        let url_ = this.baseUrl + "/api/Author/GetAuthorById/{id}";
+        let url_ = this.baseUrl + "/GetAuthorById/{id}";
         if (id === undefined || id === null)
             throw new globalThis.Error("The parameter 'id' must be defined.");
         url_ = url_.replace("{id}", encodeURIComponent("" + id));
@@ -87,7 +87,7 @@ export class AuthorClient {
     }
 
     createAuthor(dto: CreateAuthorDto): Promise<AuthorDto> {
-        let url_ = this.baseUrl + "/api/Author/CreateAuthor";
+        let url_ = this.baseUrl + "/CreateAuthor";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(dto);
@@ -124,7 +124,7 @@ export class AuthorClient {
     }
 
     updateAuthor(dto: UpdateAuthorDto): Promise<AuthorDto> {
-        let url_ = this.baseUrl + "/api/Author/UpdateAuthor";
+        let url_ = this.baseUrl + "/UpdateAuthor";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(dto);
@@ -161,7 +161,7 @@ export class AuthorClient {
     }
 
     deleteAuthor(id: string | undefined): Promise<AuthorDto> {
-        let url_ = this.baseUrl + "/api/Author/DeleteAuthor?";
+        let url_ = this.baseUrl + "/DeleteAuthor?";
         if (id === null)
             throw new globalThis.Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)

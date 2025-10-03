@@ -6,7 +6,7 @@
     "version": "1.0.0"
   },
   "paths": {
-    "/api/Author/GetAllAuthors": {
+    "/GetAllAuthors": {
       "get": {
         "tags": [
           "Author"
@@ -26,7 +26,7 @@
         }
       }
     },
-    "/api/Author/GetAuthorById/{id}": {
+    "/GetAuthorById/{id}": {
       "get": {
         "tags": [
           "Author"
@@ -57,7 +57,7 @@
         }
       }
     },
-    "/api/Author/CreateAuthor": {
+    "/CreateAuthor": {
       "post": {
         "tags": [
           "Author"
@@ -89,7 +89,7 @@
         }
       }
     },
-    "/api/Author/UpdateAuthor": {
+    "/UpdateAuthor": {
       "patch": {
         "tags": [
           "Author"
@@ -121,7 +121,7 @@
         }
       }
     },
-    "/api/Author/DeleteAuthor": {
+    "/DeleteAuthor": {
       "delete": {
         "tags": [
           "Author"

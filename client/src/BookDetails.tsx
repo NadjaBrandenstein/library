@@ -12,7 +12,10 @@ export default function BookDetails(){
 
     useEffect(() => {
         async function fecthBookDetails() {
-            if(!bookId) return;
+            if(!bookId)
+            {
+                return;
+            }
 
             try{
                 // Fetch Book
@@ -21,11 +24,30 @@ export default function BookDetails(){
                 setBook(bookData);
 
                 // // Fetch Authors
-                if(bookData.authorsIds?.length){
+                {/*if(bookData.authorsIds?.length){
                     const authorResponse =await fetch(`https://library-project-api.fly.dev/GetAllAuthors`);
                     const allAuthors: AuthorDto[] = await authorResponse.json();
                     const bookAuthors = allAuthors.find(a => a.id === bookData.authorsIds);
                     setAuthors(bookAuthors?.name ?? null);
+                }*/}
+
+                if(bookData.authorsIds?.length){
+                    const authorResponse = await fetch(`https://library-project-api.fly.dev/GetAllAuthors`);
+                    const allAuthors: AuthorDto[] = await authorResponse.json();
+
+                    //const filtered: AuthorDto[] = []
+                    const set = new Set<string>(bookData.authorsIds)
+
+                    for(const a of allAuthors) {
+                        if (set.has(a.id)) {
+                            //filtered.push([...filtered, a])
+                            setAuthors([...authors, a]);
+                        }
+                    }
+
+                    //setAuthors([...filtered])
+                    console.log(authors);
+
                 }
 
                 // Fetch Genre
@@ -45,6 +67,7 @@ export default function BookDetails(){
         }
         fecthBookDetails();
     },[bookId])
+
 
     if(loading){
         return <div>Loading...</div>;

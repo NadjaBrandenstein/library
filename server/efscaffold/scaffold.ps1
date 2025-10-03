@@ -11,6 +11,5 @@ Get-Content .env | ForEach-Object {
 dotnet tool install -g dotnet-ef
 
 # Run scaffolding
-dotnet ef dbcontext scaffold "Host=ep-round-silence-agnocc77-pooler.c-2.eu-central-1.aws.neon.tech; Database=neondb; Username=neondb_owner; Password=npg_8zDSkPZ6vinr; SSL Mode=VerifyFull; Channel Binding=Require;" Npgsql.EntityFrameworkCore.PostgreSQL --context MyDbContext --no-onconfiguring --schema library --force
+dotnet ef dbcontext scaffold $env:CONN_STR Npgsql.EntityFrameworkCore.PostgreSQL --context MyDbContext --no-onconfiguring --schema library --force
 
-# I know this is not best practice. I tried it the right way and at first it worked and then it didn't, and quite frankly I had better things to do.
