@@ -27,8 +27,8 @@ export default function Home(){
                     {menuOpen && (
                         <div className="menu-dropdown">
                             <div onClick={() => {navigate("/"); setMenuOpen(false)}}>Books</div>
-                            <div onClick={() => {navigate("/newbook"); setMenuOpen(false)}}>New Book</div>
-                            <div onClick={() => {navigate("/updatebook"); setMenuOpen(false)}}>Update Book</div>
+                            {/*<div onClick={() => {navigate("/newbook"); setMenuOpen(false)}}>Add Book</div>*/}
+                            {/*<div onClick={() => {navigate("/updatebook"); setMenuOpen(false)}}>Update Book</div>*/}
                         </div>
                     )}
                 </div>
