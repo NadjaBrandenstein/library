@@ -12,12 +12,21 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
     <PackageReference Include="NSwag.AspNetCore" Version="14.6.0" />
     <PackageReference Include="NSwag.CodeGeneration.TypeScript" Version="14.6.0" />
+    <PackageReference Include="Testcontainers.PostgreSql" Version="4.7.0" />
+    <PackageReference Include="Xunit.DependencyInjection" Version="11.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Test\obj\Debug\net8.0\Test.sourcelink.json" />
+    <_ContentIncludedByDefault Remove="Test\obj\project.assets.json" />
+    <_ContentIncludedByDefault Remove="Test\obj\Test.csproj.nuget.dgspec.json" />
   </ItemGroup>
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+      <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
 
 </Project>

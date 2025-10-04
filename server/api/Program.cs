@@ -5,38 +5,50 @@ using api.Services;
 using efscaffold;
 using Microsoft.EntityFrameworkCore;
 
-var builder = WebApplication.CreateBuilder(args);
-
-var appOptions = builder.Services.AddAppOptions(builder.Configuration);
-
-builder.Services.AddScoped<ILibraryService<BookDto, CreateBookDto, UpdateBookDto>, BookService>();
-builder.Services.AddScoped<ILibraryService<AuthorDto, CreateAuthorDto, UpdateAuthorDto>, AuthorService>();
-builder.Services.AddScoped<ILibraryService<GenreDto, CreateGenreDto, UpdateGenreDto>, GenreService>();
-
-builder.Services.AddDbContext<MyDbContext>(conf =>
+public class Program
 {
-    conf.UseNpgsql(appOptions.DbConnectionString);
-});
+    public static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
+    {
+        var appOptions = services.AddAppOptions(configuration);
 
-builder.Services.AddControllers();
-builder.Services.AddOpenApiDocument();
-builder.Services.AddProblemDetails();
-builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
-builder.Services.AddCors();
+        services.AddScoped<ILibraryService<BookDto, CreateBookDto, UpdateBookDto>, BookService>();
+        services.AddScoped<ILibraryService<AuthorDto, CreateAuthorDto, UpdateAuthorDto>, AuthorService>();
+        services.AddScoped<ILibraryService<GenreDto, CreateGenreDto, UpdateGenreDto>, GenreService>();
 
-var app = builder.Build();
+        services.AddDbContext<MyDbContext>(conf =>
+        {
+            conf.UseNpgsql(appOptions.DbConnectionString);
+        });
 
-app.UseExceptionHandler();
+        services.AddControllers();
+        services.AddOpenApiDocument();
+        services.AddProblemDetails();
+        services.AddExceptionHandler<GlobalExceptionHandler>();
+        services.AddCors();
+    }
 
-app.UseCors(config => config
-    .AllowAnyHeader()
-    .AllowAnyMethod()
-    .AllowAnyOrigin()
-    .SetIsOriginAllowed(x => true));
+    public static async Task Main(string[] args)
+    {
+        var builder = WebApplication.CreateBuilder(args);
+        
+        ConfigureServices(builder.Services, builder.Configuration);
 
-app.MapControllers();
-app.UseOpenApi();
-app.UseSwaggerUi();
-await app.GenerateApiClientsFromOpenApi("/../../client/src/generated-ts-client.ts");
+        var app = builder.Build();
 
-app.Run();
+        app.UseExceptionHandler();
+
+        app.UseCors(config => config
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowAnyOrigin()
+            .SetIsOriginAllowed(x => true));
+
+        app.MapControllers();
+        app.UseOpenApi();
+        app.UseSwaggerUi();
+
+        await app.GenerateApiClientsFromOpenApi("/../../client/src/generated-ts-client.ts");
+
+        app.Run();
+    }
+}

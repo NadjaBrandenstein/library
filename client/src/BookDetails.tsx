@@ -37,16 +37,19 @@ export default function BookDetails(){
 
                     //const filtered: AuthorDto[] = []
                     const set = new Set<string>(bookData.authorsIds)
+                    const matched: AuthorDto[] = [];
 
                     for(const a of allAuthors) {
-                        if (set.has(a.id)) {
+                        if (a.id && set.has(a.id)) {
                             //filtered.push([...filtered, a])
-                            setAuthors([...authors, a]);
+                            //setAuthors([...authors, a]);
+                            matched.push(a);
                         }
                     }
 
                     //setAuthors([...filtered])
                     console.log(authors);
+                    setAuthors(matched);
 
                 }
 
