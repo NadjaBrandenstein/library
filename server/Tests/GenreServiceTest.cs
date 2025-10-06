@@ -6,15 +6,15 @@ using Xunit;
 
 namespace api.Test;
 
-public class GenreServiceTest
+public class GenreServiceTest : IClassFixture<TestFixture>
 {
     private readonly GenreService _genreService;
-    private readonly MyDbContext _myDbContext;
+    private readonly MyDbContext _dbContext;
 
-    public GenreServiceTest(GenreService genreService, MyDbContext myDbContext)
+    public GenreServiceTest(TestFixture fixture)
     {
-        _genreService = genreService;
-        _myDbContext = myDbContext;
+        _genreService = fixture.GenreService;
+        _dbContext = fixture.DbContext;
     }
     
     [Fact]
@@ -65,7 +65,7 @@ public class GenreServiceTest
         // Assert
         Assert.NotNull(result);
         Assert.Equal(dto.Name, result.Name);
-        Assert.True(await _myDbContext.Genres.AnyAsync(g => g.Id == result.Id));
+        Assert.True(await _dbContext.Genres.AnyAsync(g => g.Id == result.Id));
     }
     
     [Fact]
@@ -95,7 +95,7 @@ public class GenreServiceTest
     public async Task Delete_ShouldDeleteGenre()
     {
         // Arrange
-        var book = await _genreService.Create(new CreateGenreDto
+        var genre = await _genreService.Create(new CreateGenreDto
         {
             Name = "Genre"
         });
@@ -105,7 +105,7 @@ public class GenreServiceTest
         
         // Assert
         Assert.NotNull(deleted);
-        Assert.Null(await _genreService.GetById(book.Id));
+        Assert.Null(await _genreService.GetById(genre.Id));
     }
     
 }

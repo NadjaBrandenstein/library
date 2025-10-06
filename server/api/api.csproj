@@ -2,6 +2,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\efscaffold\efscaffold.csproj" />
+      <Compile Remove="Test\**" />
+      <EmbeddedResource Remove="Test\**" />
+      <None Remove="Test\**" />
   </ItemGroup>
 
   <ItemGroup>

@@ -6,15 +6,16 @@ using Xunit;
 
 namespace api.Test;
 
-public class BookServiceTest
+
+public class BookServiceTest : IClassFixture<TestFixture>
 {
     private readonly BookService _bookService;
-    private readonly MyDbContext _myDbContext;
+    private readonly MyDbContext _dbContext;
 
-    public BookServiceTest(BookService bookService, MyDbContext myDbContext)
+    public BookServiceTest(TestFixture fixture)
     {
-        _bookService = bookService;
-        _myDbContext = myDbContext;
+        _bookService = fixture.BookService;
+        _dbContext = fixture.DbContext;
     }
     
     [Fact]
@@ -71,7 +72,7 @@ public class BookServiceTest
         // Assert
         Assert.NotNull(result);
         Assert.Equal(dto.Title, result.Title);
-        Assert.True(await _myDbContext.Books.AnyAsync(b => b.Id == result.Id));
+        Assert.True(await _dbContext.Books.AnyAsync(b => b.Id == result.Id));
     }
     
     [Fact]

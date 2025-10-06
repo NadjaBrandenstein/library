@@ -6,15 +6,15 @@ using Xunit;
 
 namespace api.Test;
 
-public class AuthorServiceTest
+public class AuthorServiceTest : IClassFixture<TestFixture>
 {
     private readonly AuthorService _authorService;
-    private readonly MyDbContext _myDbContext;
+    private readonly MyDbContext _dbContext;
 
-    public AuthorServiceTest(AuthorService authorService, MyDbContext myDbContext)
+    public AuthorServiceTest(TestFixture fixture)
     {
-        _authorService = authorService;
-        _myDbContext = myDbContext;
+        _authorService = fixture.AuthorService;
+        _dbContext = fixture.DbContext;
     }
     
     [Fact]
@@ -44,7 +44,7 @@ public class AuthorServiceTest
         
         // Assert
         Assert.NotNull(fetched);
-        Assert.Equal("Author name", fetched.Name);
+        Assert.Equal("Karl Heinz Müller", fetched.Name);
     }
     
     [Fact]
@@ -62,7 +62,7 @@ public class AuthorServiceTest
         // Assert
         Assert.NotNull(result);
         Assert.Equal(dto.Name, result.Name);
-        Assert.True(await _myDbContext.Authors.AnyAsync(a => a.Id == result.Id));
+        Assert.True(await _dbContext.Authors.AnyAsync(a => a.Id == result.Id));
     }
     
     [Fact]
@@ -71,7 +71,7 @@ public class AuthorServiceTest
         // Arrange
         var author = await _authorService.Create(new CreateAuthorDto
         {
-            Name = "Karl Heinz Müller",
+            Name = "New author name",
         });
 
         var updateDto = new UpdateAuthorDto
@@ -85,7 +85,7 @@ public class AuthorServiceTest
 
         // Assert
         Assert.NotNull(updated);
-        Assert.Equal("New author name", updated.Name);
+        Assert.Equal("Karl Heinz Schneider", updated.Name);
     }
 
     [Fact]
