@@ -299,6 +299,60 @@
         }
       }
     },
+    "/api/BookDetails/getAllBookDetails": {
+      "get": {
+        "tags": [
+          "BookDetails"
+        ],
+        "operationId": "BookDetails_getAllBookDetails",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BookDetailsDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/BookDetails/GetBookDetailsById/{id}": {
+      "get": {
+        "tags": [
+          "BookDetails"
+        ],
+        "operationId": "BookDetails_getBookDetailsById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookDetailsDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/GetAllGenres": {
       "get": {
         "tags": [
@@ -556,6 +610,45 @@
           "imageUrl": {
             "type": "string",
             "minLength": 1
+          }
+        }
+      },
+      "BookDetailsDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "pages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "createdat": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "genre": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/GenreDto"
+              }
+            ]
+          },
+          "authors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AuthorDto"
+            }
           }
         }
       },

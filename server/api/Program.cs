@@ -14,6 +14,7 @@ public class Program
         services.AddScoped<ILibraryService<BookDto, CreateBookDto, UpdateBookDto>, BookService>();
         services.AddScoped<ILibraryService<AuthorDto, CreateAuthorDto, UpdateAuthorDto>, AuthorService>();
         services.AddScoped<ILibraryService<GenreDto, CreateGenreDto, UpdateGenreDto>, GenreService>();
+        services.AddScoped<BookDetailsService>();
 
         services.AddDbContext<MyDbContext>(conf =>
         {

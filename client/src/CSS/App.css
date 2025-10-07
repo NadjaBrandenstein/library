@@ -167,6 +167,44 @@ button:focus-visible {
     margin: 0;
 }
 
+/* New Book*/
+
+.newbook-container{
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #f2e9ae;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    text-align: left;
+    color: #000
+}
+
+.newbook-form{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.newbook-input{
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 0.75rem;
+    font-size: 1rem;
+    background-color: #fff;
+    color: #000;
+}
+
+.newbook-button{
+    background-color: #f2e9ae;
+    color: #fff;
+    font-weight: 600;
+    padding: 0.75rem;
+    border: none;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+}
+
 /*Navbar*/
 
 .navbar {

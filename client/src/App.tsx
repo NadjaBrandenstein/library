@@ -12,7 +12,7 @@ function App() {
             children: [
                 {path: "/", element: <Home/>},
                 {path: "/books/:bookId", element: <BookDetails/>},
-                // {path: "/newbook", element: <NewBook/>},
+                //{path: "/newbook", element: <NewBook/>},
                 // {path: "/updatebook", element: <UpdateBook/>}
             ],
         },

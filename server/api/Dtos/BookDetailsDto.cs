@@ -10,10 +10,16 @@ public class BookDetailsDto
         Title = book.Title;
         Pages = book.Pages;
         Createdat = book.Createdat;
-        Genreid = book.Genreid;
-        AuthorsIds = book.Authors?.Select(a => a.Id).ToList() ?? new List<string>();
-        AuthorNames = book.Authors?.Select(a => a.Name).ToList() ?? new List<string>();
         ImageUrl = book.Imageurl;
+
+        Genre = book.Genre != null
+            ? new GenreDto(book.Genre)
+            : null;
+
+        Authors = book.Authors?
+            .Select(a => new AuthorDto(a))
+            .ToList()
+            ?? new List<AuthorDto>();
     }
 
     public string Id { get; set; } = null!;
@@ -24,11 +30,9 @@ public class BookDetailsDto
     
     public DateTime? Createdat { get; set; }
     
-    public string? Genreid { get; set; }
-
-    public List<string> AuthorsIds { get; set; }
-    public List<string> AuthorNames { get; set; }
-
-    
     public string? ImageUrl { get; set; }
+    
+    public GenreDto? Genre { get; set; }
+
+    public List<AuthorDto> Authors { get; set; } = new();
 }
